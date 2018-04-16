@@ -30,7 +30,7 @@ extern FILE* log_fp;
   do { \
     if (!(cond)) { \
       fflush(stdout); \
-      fprintf(stderr, "\33[1;31m"); \
+      fprintf(stderr, "\33[1;31mASSERT: "); \
       fprintf(stderr, __VA_ARGS__); \
       fprintf(stderr, "\33[0m\n"); \
       assert(cond); \
