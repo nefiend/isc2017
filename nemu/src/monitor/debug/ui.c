@@ -89,6 +89,7 @@ void ui_mainloop(int is_batch_mode) {
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
+	Log("cmd = %s", cmd);
     if (cmd == NULL) { continue; }
 
     /* treat the remaining string as the arguments,
