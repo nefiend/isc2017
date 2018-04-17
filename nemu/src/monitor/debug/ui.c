@@ -41,6 +41,7 @@ static int cmd_si(char *args){
     cpu_exec(1);
   }
   else{
+    Log("*args = %d", *args);
     cpu_exec(*args);
   }
   return 0;
