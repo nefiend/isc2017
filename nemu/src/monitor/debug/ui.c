@@ -58,7 +58,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  {"si [N]", "Make the program execute N structions step by step, then suspend execution. "
+  {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
   "When N is not Given, the default is 1", cmd_si},
 };
 
