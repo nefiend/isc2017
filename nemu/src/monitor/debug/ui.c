@@ -36,6 +36,11 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args){
+  cpu_exec(-1);
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -48,7 +53,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  {"si [N]", "Make the program execute N structions step by step, then suspend execution. "
+  "When N is not Given, the default is 1", cmd_si}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
