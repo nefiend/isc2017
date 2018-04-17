@@ -37,7 +37,12 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args){
-  cpu_exec(-1);
+  if(NULL == args){
+    cpu_exec(1);
+  }
+  else{
+    cpu_exec(*args);
+  }
   return 0;
 }
 
