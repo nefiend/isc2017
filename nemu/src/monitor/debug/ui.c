@@ -59,7 +59,7 @@ static struct {
 
   /* TODO: Add more commands */
   {"si [N]", "Make the program execute N structions step by step, then suspend execution. "
-  "When N is not Given, the default is 1", cmd_si}
+  "When N is not Given, the default is 1", cmd_si},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
