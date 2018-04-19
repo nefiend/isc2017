@@ -55,7 +55,7 @@ static int cmd_info(char *args){
       uint32_t *temp = (uint32_t*)(&cpu+ 4 * i);
       printf("%s \t %p \t 0x%x\n", reg[i], temp, *temp);
     }*/
-    printf("eip = %d\n", cpu.eip);
+    printf("eip = %x\n", cpu.eip);
   }
   else if(strcmp(args, "w") == 0){
 
