@@ -53,7 +53,7 @@ static int cmd_info(char *args){
     char *reg[] = {"rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi", "rip"};
     for (uint32_t i = 0; i < 9; i++){
       uint32_t *temp = (uint32_t*)(&cpu+ 4 * i);
-      printf("%s \t %p \t %x\n", reg[i], temp, *temp);
+      printf("%s \t %p \t 0x%x\n", reg[i], temp, *temp);
     }
   }
   else if(strcmp(args, "w") == 0){
