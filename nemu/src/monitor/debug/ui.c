@@ -49,6 +49,15 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
   if(NULL == args){
     printf("Please type r or w for params!\n");}
+  else if(strcmp(args, "r") == 0){
+    for (uint32_t i = 0; i < 8; i++){
+      uint32_t *temp = (uint32_t*)(&cpu+ 4 * i);
+      printf("%p,\t%i\n", temp, *temp);
+    }
+  }
+  else if(strcmp(args, "w") == 0){
+
+  }
   return 0;
 }
 
