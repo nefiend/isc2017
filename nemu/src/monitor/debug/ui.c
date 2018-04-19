@@ -67,6 +67,10 @@ static int cmd_info(char *args){
   return 0;
 }
 
+static int cmd_x(char *args){
+  return 0;
+}
+
 
 static int cmd_help(char *args);
 
@@ -82,7 +86,8 @@ static struct {
   /* TODO: Add more commands */
   {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
    "When N is not Given, the default is 1", cmd_si},
-  {"info", "info {r | w}, print register status or watch point info", cmd_info},
+  {"info", "info {r | w}. Print register status or watch point info", cmd_info},
+  {"x", "x N EXPR. Find the value of EXPR and use the value as start memory address, output N DWORD continuously", cmd_x},
 
 };
 
