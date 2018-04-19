@@ -53,8 +53,8 @@ static int cmd_info(char *args){
     char *reg[] = {"rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi", "rip"};
     for (uint32_t i = 0; i < 8; i++){
       printf("%s \t 0x%x\n",  reg[i], reg_l(i));
-      printf("%s \t 0x%x\n",  reg[i], reg_w(i));
-      printf("%s \t 0x%x\n",  reg[i], reg_b(i));
+      //printf("%s \t 0x%x\n",  reg[i], reg_w(i));
+      //printf("%s \t 0x%x\n",  reg[i], reg_b(i));
 
       
       
