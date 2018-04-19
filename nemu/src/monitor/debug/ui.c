@@ -50,9 +50,10 @@ static int cmd_info(char *args){
   if(NULL == args){
     printf("Please type r or w for params!\n");}
   else if(strcmp(args, "r") == 0){
-    for (uint32_t i = 0; i < 8; i++){
+    Log("sizeof cpu = %lu", sizeof(cpu));
+    for (uint32_t i = 0; i < sizeof(cpu); i++){
       uint32_t *temp = (uint32_t*)(&cpu+ 4 * i);
-      printf("%p,\t%i\n", temp, *temp);
+      printf("%p,\t%d\n", temp, *temp);
     }
   }
   else if(strcmp(args, "w") == 0){
