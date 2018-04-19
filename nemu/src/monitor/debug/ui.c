@@ -47,7 +47,8 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-  
+  if(NULL == args){
+    printf("Please type r or w for params!\n");}
   return 0;
 }
 
