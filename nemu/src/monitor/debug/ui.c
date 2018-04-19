@@ -66,8 +66,7 @@ static struct {
   /* TODO: Add more commands */
   {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
    "When N is not Given, the default is 1", cmd_si},
-  {"info SUBCMD", "Make the program execute N structions step by step, then suspend execution. "
-   "When N is not Given, the default is 1", cmd_info},
+  {"info", "info {r | w}", cmd_info},
 
 };
 
@@ -81,13 +80,13 @@ static int cmd_help(char *args) {
   if (arg == NULL) {
     /* no argument given */
     for (i = 0; i < NR_CMD; i ++) {
-      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+      printf("%-4s - %s\n", cmd_table[i].name, cmd_table[i].description);
     }
   }
   else {
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(arg, cmd_table[i].name) == 0) {
-        printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+        printf("%-4s - %s\n", cmd_table[i].name, cmd_table[i].description);
         return 0;
       }
     }
