@@ -66,7 +66,7 @@ static struct {
   /* TODO: Add more commands */
   {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
    "When N is not Given, the default is 1", cmd_si},
-  {"info", "info {r | w}", cmd_info},
+  {"info", "info {r | w}, print register status or watch point info", cmd_info},
 
 };
 
