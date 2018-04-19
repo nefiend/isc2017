@@ -41,11 +41,16 @@ static int cmd_si(char *args){
     cpu_exec(1);
   }
   else{
-    Log("*args = %d", *args);
-    cpu_exec(*args);
+  cpu_exec(*args);
   }
   return 0;
 }
+
+static int cmd_info(char *args){
+  
+  return 0;
+}
+
 
 static int cmd_help(char *args);
 
@@ -59,8 +64,11 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
-  "When N is not Given, the default is 1", cmd_si},
+  {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
+   "When N is not Given, the default is 1", cmd_si},
+  {"info SUBCMD", "Make the program execute N structions step by step, then suspend execution. "
+   "When N is not Given, the default is 1", cmd_info},
+
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -96,12 +104,12 @@ void ui_mainloop(int is_batch_mode) {
 
   while (1) {
     char *str = rl_gets();
-	Log("str = %s", str);
+    Log("str = %s", str);
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
-	Log("cmd = %s", cmd);
+    Log("cmd = %s", cmd);
     if (cmd == NULL) { continue; }
 
     /* treat the remaining string as the arguments,
