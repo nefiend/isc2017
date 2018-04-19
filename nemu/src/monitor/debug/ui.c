@@ -50,21 +50,19 @@ static int cmd_info(char *args){
   if(NULL == args){
     printf("Please type r or w for params!\n");}
   else if(strcmp(args, "r") == 0){
-    char *reg[] = {"rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi", "rip"};
+    char *reg[] = {"rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi"};
     for (uint32_t i = 0; i < 8; i++){
       printf("%s \t 0x%x\n",  reg[i], reg_l(i));
       //printf("%s \t 0x%x\n",  reg[i], reg_w(i));
       //printf("%s \t 0x%x\n",  reg[i], reg_b(i));
-
-      
-      
-      //uint32_t *temp = (uint32_t*)(&cpu + 4 * i);
-      //printf("%s \t %p \t 0x%x\n", reg[i], temp, *temp);
     }
     printf("rip \t 0x%x\n", cpu.eip);
   }
   else if(strcmp(args, "w") == 0){
 
+  }
+  else{
+    printf("Unknown command '%s'\n", args);
   }
   return 0;
 }
