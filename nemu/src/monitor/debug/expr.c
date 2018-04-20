@@ -149,6 +149,6 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
   TODO();
-
+  Log("expr end!");
   return 0;
 }
