@@ -95,56 +95,68 @@ static bool make_token(char *e) {
           {
             tokens[nr_token].type = '+';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '-':
           {
             tokens[nr_token].type = '-';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '*':
           {
             tokens[nr_token].type = '*';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '/':
           {
             tokens[nr_token].type = '/';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case ',':
           {
             tokens[nr_token].type = ',';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_NOTYPE:
           {
+            /* spaces do not record */
             break;
           }
           case TK_EQ:
           {
             tokens[nr_token].type = TK_EQ;
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_NUM:
           {
             tokens[nr_token].type = TK_NUM;
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_VAR:
           {
             tokens[nr_token].type = TK_VAR;
             memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
   
-          default: TODO();
+          default:
+          {
+            TODO();
+          }
         }
 
         break;
