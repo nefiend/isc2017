@@ -84,7 +84,7 @@ static bool make_token(char *e) {
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         printf("positon = %d, substr_len = %d\n", position, substr_len);
         position += substr_len;
-        printf("e + posotion = %c\n", e[position]);
+        printf("e[posotion] == '\\0':%d\n", e[position] == '\0');
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
