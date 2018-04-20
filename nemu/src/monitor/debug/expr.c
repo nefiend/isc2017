@@ -167,6 +167,9 @@ uint32_t expr(char *e, bool *success) {
   }
   
   /* TODO: Insert codes to evaluate the expression. */
+  for (int i = 0; i < 32; i ++){
+    printf("token[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
+  }
   *success = true;
   TODO();
   Log("expr end!");
