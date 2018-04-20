@@ -10,7 +10,7 @@ enum {
   TK_NOTYPE = 256, 
   TK_EQ,
   TK_NUM,
-  TK_VAR
+  TK_VAR,
 
   /* TODO: Add more token types */
 
@@ -33,6 +33,7 @@ static struct rule {
   {"/", '/'},             // divide
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
+  {",", ','}              // comma
   
 };
 
@@ -82,9 +83,8 @@ static bool make_token(char *e) {
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
-        printf("positon = %d, substr_len = %d\n", position, substr_len);
         position += substr_len;
-        printf("e[posotion] == '\\0':%d\n", e[position] == '\0');
+
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
@@ -104,6 +104,10 @@ static bool make_token(char *e) {
             break;
           }
           case '/':
+          {
+            break;
+          }
+          case ',':
           {
             break;
           }
@@ -145,7 +149,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  Log("expr ok!");
+  
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
   TODO();
