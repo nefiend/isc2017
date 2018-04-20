@@ -34,8 +34,8 @@ static struct rule {
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
   {",", ','},             // comma
-    {"(", '('},
-    {")", ')'}
+  {"[.(.]", '('},
+  {"[.).]", ')'}
   
 };
 
