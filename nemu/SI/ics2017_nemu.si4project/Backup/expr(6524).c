@@ -24,10 +24,7 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
-  {"-", '-'},           // subtract
-  {"\\*", '*'},         // multiply
-  {"/", '/'},           // divide
+  {"==", TK_EQ}         // equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -60,7 +57,6 @@ Token tokens[32];
 int nr_token;
 
 static bool make_token(char *e) {
-  Log("e = %s", e);
   int position = 0;
   int i;
   regmatch_t pmatch;
@@ -69,9 +65,7 @@ static bool make_token(char *e) {
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
-    Log("e + posotion = %s", e + position);
     for (i = 0; i < NR_REGEX; i ++) {
-      Log("re[%d] = %s", i, (char *)&re[i]);
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
@@ -109,7 +103,6 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  *success = true;
   TODO();
 
   return 0;

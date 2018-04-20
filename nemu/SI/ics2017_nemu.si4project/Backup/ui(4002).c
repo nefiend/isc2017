@@ -67,15 +67,7 @@ static int cmd_info(char *args){
   return 0;
 }
 
-static int cmd_p(char *args){
-
-  return 0;
-}
-
 static int cmd_x(char *args){
-  bool *success = NULL;
-  expr(args, success);
-
   return 0;
 }
 
@@ -95,7 +87,6 @@ static struct {
   {"si", "si [N]. Make the program execute N structions step by step, then suspend execution. "
    "When N is not Given, the default is 1", cmd_si},
   {"info", "info {r | w}. Print register status or watch point info", cmd_info},
-  {"p", "p EXPR. Find the value of EXPR", cmd_p},
   {"x", "x N EXPR. Find the value of EXPR and use the value as start memory address, output N DWORD continuously", cmd_x},
 
 };
