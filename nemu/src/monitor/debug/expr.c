@@ -33,7 +33,9 @@ static struct rule {
   {"/", '/'},             // divide
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
-  {",", ','}              // comma
+  {",", ','},             // comma
+    {"(", '('},
+    {")", ')'}
   
 };
 
@@ -122,6 +124,20 @@ static bool make_token(char *e) {
           case ',':
           {
             tokens[nr_token].type = ',';
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case '(':
+          {
+            tokens[nr_token].type = '(';
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case ')':
+          {
+            tokens[nr_token].type = ')';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
             nr_token++;
             break;
