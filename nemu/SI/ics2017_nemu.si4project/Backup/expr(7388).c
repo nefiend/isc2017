@@ -5,7 +5,6 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-#include <stdlib.h>
 
 enum {
   TK_NOTYPE = 256, 
@@ -190,28 +189,27 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int p, int q){
-  if (('(' == tokens[p].type) && (')' == tokens[q].type))
+  if (('(' == tokens[p]) && (')' == tokens[q]))
     return true;
 
   return false;
 }
 
-int eval(int start, int end){
-  return atoi(tokens[start].str);
-
+int eval(int start, int end, int *result){
   if (start > end){
     return -1;
   }
   else if (start == end){
-    return atoi(tokens[start].str);
+    return tokens[start].str;
   }
   else if (true == check_parentheses(start, end)){
     return eval(start + 1, end - 1);
   }
   else{
     /* find dominant operator */
-    //int op = start;
-    return 0;
+    int op = start;
+    for
+
   }
   
 }
@@ -228,7 +226,7 @@ uint32_t expr(char *e, bool *success) {
     printf("token[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
   }
 
-  Log("xxx = %d", eval(0, nr_token));
+  eval(0, nr_token);
   
   *success = true;
   TODO();
