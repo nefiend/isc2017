@@ -36,11 +36,13 @@ static struct rule {
   {"[a-zA-Z]+", TK_VAR},  // variable
   {",", ','},             // comma
   {"[.(.]", '('},         // open parenthesis
-  {"[.).]", ')'},         // close parenthesis
+  {"[.).]", ')'}         // close parenthesis
+  /*
   {"[.[.]", '['},         // open bracket
   {"[.].]", ']'},         // close bracket
   {"[.{.]", '{'},         // open brace
   {"[.}.]", '}'}          // close brace
+  */
   
 };
 
