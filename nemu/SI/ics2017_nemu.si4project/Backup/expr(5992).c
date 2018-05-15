@@ -209,7 +209,11 @@ int is_parenthesis(char op){
     return 0;
 }
 
-bool is_mathematic_operator(char op){
+bool is_bracket(char op){
+  if ()
+}
+
+bool is_operator(char op){
   bool ret;
   switch(op){
     case '+':
@@ -219,61 +223,34 @@ bool is_mathematic_operator(char op){
       ret = true;
     
     default:
-      Log("%c is not oprator!\r\n", op);
+      Log("%c is not oprator!\r\n", c);
       ret = false;
   }
   return ret;
 }
 
-static inline bool check_opretor_is_add_or_subtract(char op){
-  if (('+' == op) || ('-' == op)){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-    
-static inline bool check_opretor_is_multiply_or_divide(char op){
-  if (('*' == op) || ('/' == op)){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-  
-enum{
-  op_cmp_small = 0,
-  op_cmp_equal,
-  op_cmp_big,
-};
+#define CHECK_OPRETOR_IS_ADD_OR_SUBTRACT(char op) \
+  if (('+' == op) || ('-' == op)){ \
+    return true; \
+  } \
+  else{ \
+    return false; \
+  } \
+
+ #define CHECK_OPRETOR_IS_MULTIPLY_OR_DIVIDE(char op) \
+  if (('*' == op) || ('/' == op)){ \
+    return true; \
+  } \
+  else{ \
+    return false; \
+  } \
 
 int operator_compare(char op1, char op2){
-  if (true == check_opretor_is_add_or_subtract(op1)){
-    if (true == check_opretor_is_add_or_subtract(op2)){
-      return op_cmp_equal;
-    }
-    else if (true == check_opretor_is_multiply_or_divide(op2)){
-      return op_cmp_small;
-    }
-    else{
-      return -1;
-    }
+  if (CHECK_OPRETOR_IS_ADD_OR_SUBTRACT(op1)){
+    if ()
   }
-  else if (true == check_opretor_is_multiply_or_divide(op1)){
-    if (true == check_opretor_is_add_or_subtract(op2)){
-      return op_cmp_big;
-    }
-    else if (true == check_opretor_is_multiply_or_divide(op2)){
-      return op_cmp_equal;
-    }
-    else{
-      return -1;
-    }
-  }
-  else{
-    return -1;
+  else if (CHECK_OPRETOR_IS_MULTIPLY_OR_DIVIDE(op1)){
+
   }
     
 }
@@ -290,40 +267,19 @@ int eval(int start, int end){
   }
   else{
     /* find dominant operator */
-    int ret, i, op = -1;
-    int parenthesis_count = 0;
+    int i,op;
+    int parenthesis_num = 0;
     for (i = start; op <= end; op++){
-      /* 1、判断当前字符是否是在括号里面 */
-      Assert(parenthesis_count < 0, "parenthesis count is err!");
-      if (parenthesis_count > 0){
-        parenthesis_count += is_parenthesis(*(tokens[i].str));
+      /* 1、判断当前字符串是否是在括号里面 */
+      Assert(parenthesis_num < 0);
+      if (parenthesis_num > 0){
+        parenthesis_num += is_parenthesis(tokens[i].str);
         continue;
       }
       else {
-        parenthesis_count += is_parenthesis(*(tokens[i].str));
-        /* 2、判断字符是否是算术运算符 */
-        if (true == is_mathematic_operator(*(tokens[i].str))){
-          /* 判断op是否有值 */
-          if (-1 == op){
-            op = i;
-            continue;
-          }
-          /* 3、判断算数运算符的优先级 */
-          else{
-            ret = operator_compare(*(tokens[op].str), *(tokens[i].str));
-            if (op_cmp_small == ret){
-              continue;
-            }
-            else if ((op_cmp_equal == ret) || (op_cmp_big == ret)){
-              op = i;
-            }
-            else{
-              return -1;
-            }
-          }
-        }
-        else{
-          continue;
+        /* 2、判断 */
+        if (0 == is_parenthesis(tokens[i].str)){
+          
         }
       }
     }
