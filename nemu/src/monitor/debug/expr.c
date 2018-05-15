@@ -296,6 +296,7 @@ int eval(int start, int end){
     int op = -1;
     int parenthesis_count = 0;
     for (i = start; op <= end; op++){
+      Log("parenthesis_count = %d.", parenthesis_count);
       /* 1、判断当前字符是否是在括号里面 */
       Assert(parenthesis_count < 0, "parenthesis count is err!");
       if (parenthesis_count > 0){
