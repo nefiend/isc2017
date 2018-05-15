@@ -292,7 +292,8 @@ int eval(int start, int end){
   }
   else{
     /* find dominant operator */
-    int ret, i, op = -1;
+    int ret, i, val1, val2;
+    int op = -1;
     int parenthesis_count = 0;
     for (i = start; op <= end; op++){
       /* 1、判断当前字符是否是在括号里面 */
@@ -329,6 +330,28 @@ int eval(int start, int end){
         }
       }
     }
+
+    if (-1 == op)
+      return -1;
+    val1 = eval(start, op-1);
+    val2 = eval(op + 1, end);
+
+    switch(*(tokens[op].str)){
+      case '+':
+        return val1 + val2;
+      case '-':
+        return val1 - val2;
+      case '*':
+        return val1 * val2;
+      case '/':
+        return val1 / val2;
+      default:
+        assert(0);
+    }
+
+
+
+    
     return 0;
   }
 
