@@ -372,11 +372,11 @@ uint32_t expr(char *e, bool *success) {
     printf("token[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
   }
 
-  Log("xxx = %d", eval(0, nr_token-1));
+  Log("%s = %d.", e, eval(0, nr_token-1));
   
   *success = true;
-  TODO();
+  //TODO();
   Log("expr end!");
-  return 0;
+  return eval(0, nr_token-1);
 }
 
