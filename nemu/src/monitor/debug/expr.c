@@ -222,7 +222,7 @@ bool is_mathematic_operator(int op){
       break;
     
     default:
-      Log("%c is not oprator!\r\n", op);
+      Log("%d is not oprator!\r\n", op);
       ret = false;
   }
   return ret;
