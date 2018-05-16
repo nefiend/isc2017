@@ -202,7 +202,7 @@ bool check_parentheses(int p, int q){
   return false;
 }
 
-int is_parenthesis(int op){
+int is_parenthesis(char op){
   if ('(' == op)
     return 1;
   else if (')' == op)
@@ -211,7 +211,7 @@ int is_parenthesis(int op){
     return 0;
 }
 
-bool is_mathematic_operator(int op){
+bool is_mathematic_operator(char op){
   bool ret;
   switch(op){
     case '+':
@@ -227,7 +227,7 @@ bool is_mathematic_operator(int op){
   return ret;
 }
 
-static inline bool check_opretor_is_add_or_subtract(int op){
+static inline bool check_opretor_is_add_or_subtract(char op){
   if (('+' == op) || ('-' == op)){
     return true;
   }
@@ -236,7 +236,7 @@ static inline bool check_opretor_is_add_or_subtract(int op){
   }
 }
     
-static inline bool check_opretor_is_multiply_or_divide(int op){
+static inline bool check_opretor_is_multiply_or_divide(char op){
   if (('*' == op) || ('/' == op)){
     return true;
   }
@@ -251,7 +251,7 @@ enum{
   op_cmp_big,
 };
 
-int operator_compare(int op1, int op2){
+int operator_compare(char op1, char op2){
   if (true == check_opretor_is_add_or_subtract(op1)){
     if (true == check_opretor_is_add_or_subtract(op2)){
       return op_cmp_equal;
@@ -300,13 +300,13 @@ int eval(int start, int end){
       /* 1、判断当前字符是否是在括号里面 */
       Assert(parenthesis_count >= 0, "parenthesis count is err!");
       if (parenthesis_count > 0){
-        parenthesis_count += is_parenthesis(tokens[i].type);
+        parenthesis_count += is_parenthesis(*(tokens[i].str));
         continue;
       }
       else {
-        parenthesis_count += is_parenthesis(tokens[i].type);
+        parenthesis_count += is_parenthesis(*(tokens[i].str));
         /* 2、判断字符是否是算术运算符 */
-        if (true == is_mathematic_operator(tokens[i].type)){
+        if (true == is_mathematic_operator(*(tokens[i].str))){
           /* 判断op是否有值 */
           if (-1 == op){
             op = i;
@@ -314,7 +314,7 @@ int eval(int start, int end){
           }
           /* 3、判断算数运算符的优先级 */
           else{
-            ret = operator_compare(tokens[op].type, tokens[i].type);
+            ret = operator_compare(*(tokens[op].str), *(tokens[i].str));
             if (op_cmp_small == ret){
               continue;
             }
