@@ -307,6 +307,7 @@ int eval(int start, int end){
       else {
         parenthesis_count += is_parenthesis(tokens[i].type);
         /* 2、判断字符是否是算术运算符 */
+      Log("tokens[%d].type = %d", i, tokens[i].type);
         if (true == is_mathematic_operator(tokens[i].type)){
           /* 判断op是否有值 */
           if (-1 == op){
