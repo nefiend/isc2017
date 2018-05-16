@@ -9,6 +9,11 @@
 
 enum {
   TK_NOTYPE = 256, 
+  TK_GREAT_EQ,
+  TK_LESS_EQ,
+  TK_GREAT,
+  TK_LESS,
+  TK_NOT_EQ,
   TK_EQ,
   TK_NUM,
   TK_VAR,
@@ -28,10 +33,16 @@ static struct rule {
 
   {" +", TK_NOTYPE},      // spaces
   {"\\+", '+'},           // plus
-  {"==", TK_EQ},          // equal
   {"-", '-'},             // subtract
   {"\\*", '*'},           // multiply
   {"/", '/'},             // divide
+  {">=", TK_GREAT_EQ},    // greater or equal
+  {"<=", TK_LESS_EQ},     // less or equal
+  {">", '>'},             // greater
+  {"<", '<'},             // less
+  {"!=", TK_NOT_EQ},      // not equal
+  {"==", TK_EQ},          // equal
+  {"=", '='},             // assign
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
   {",", ','},             // comma
@@ -100,6 +111,11 @@ static bool make_token(char *e) {
          */
         Assert(substr_len < 32, "strlen is larger than 32.");
         switch (rules[i].token_type) {
+          case TK_NOTYPE:
+          {
+            /* spaces do not record */
+            break;
+          }
           case '+':
           {
             tokens[nr_token].type = '+';
@@ -128,6 +144,70 @@ static bool make_token(char *e) {
             nr_token++;
             break;
           }
+          case TK_GREAT_EQ:
+          {
+            tokens[nr_token].type = TK_GREAT_EQ;
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case TK_LESS_EQ:
+          {
+            tokens[nr_token].type = TK_LESS_EQ;
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case '>':
+          {
+            tokens[nr_token].type = '>';
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case '<':
+          {
+            tokens[nr_token].type = '<';
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case TK_NOT_EQ:
+          {
+            tokens[nr_token].type = TK_NOT_EQ;
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case TK_EQ:
+          {
+            tokens[nr_token].type = TK_EQ;
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case '=':
+          {
+            tokens[nr_token].type = '=';
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case TK_NUM:
+          {
+            tokens[nr_token].type = TK_NUM;
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          case TK_VAR:
+          {
+            tokens[nr_token].type = TK_VAR;
+            memcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
+            break;
+          }
+          
           case ',':
           {
             tokens[nr_token].type = ',';
@@ -149,33 +229,6 @@ static bool make_token(char *e) {
             nr_token++;
             break;
           }
-          case TK_NOTYPE:
-          {
-            /* spaces do not record */
-            break;
-          }
-          case TK_EQ:
-          {
-            tokens[nr_token].type = TK_EQ;
-            memcpy(tokens[nr_token].str, substr_start, substr_len);
-            nr_token++;
-            break;
-          }
-          case TK_NUM:
-          {
-            tokens[nr_token].type = TK_NUM;
-            memcpy(tokens[nr_token].str, substr_start, substr_len);
-            nr_token++;
-            break;
-          }
-          case TK_VAR:
-          {
-            tokens[nr_token].type = TK_VAR;
-            memcpy(tokens[nr_token].str, substr_start, substr_len);
-            nr_token++;
-            break;
-          }
-  
           default:
           {
             TODO();
