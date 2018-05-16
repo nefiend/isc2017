@@ -219,6 +219,7 @@ bool is_mathematic_operator(int op){
     case '*':
     case '/':
       ret = true;
+      break;
     
     default:
       Log("%c is not oprator!\r\n", op);
