@@ -70,7 +70,7 @@ static int cmd_info(char *args){
 static int cmd_p(char *args){
   bool success;
   //expr(args, &success);
-  printf("%s = %d.", args, expr(args, &success));
+  printf("%s = %d.\r\n", args, expr(args, &success));
   return 0;
 }
 
