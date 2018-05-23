@@ -112,7 +112,10 @@ static struct {
 
 static int cmd_help(char *args) {
   /* extract the first argument */
+  Log("args = %s", args);
+
   char *arg = strtok(NULL, " ");
+  Log("arg = %s", arg);
   int i;
 
   if (arg == NULL) {
@@ -147,7 +150,6 @@ void ui_mainloop(int is_batch_mode) {
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     Log("cmd = %s", cmd);
-    Log("str = %s", str);
     if (cmd == NULL) { continue; }
 
     /* treat the remaining string as the arguments,
