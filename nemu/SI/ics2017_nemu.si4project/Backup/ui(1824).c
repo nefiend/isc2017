@@ -75,16 +75,11 @@ static int cmd_p(char *args){
 }
 
 static int cmd_x(char *args){
-  /* extract the first argument */
-  //char *arg = strtok(NULL, " ");
-  //int i; 
-
-
   bool success;
   int ret;
   ret = expr(args, &success);
 
-  return ret;
+  return 0;
 }
 
 
@@ -147,7 +142,6 @@ void ui_mainloop(int is_batch_mode) {
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     Log("cmd = %s", cmd);
-    Log("str = %s", str);
     if (cmd == NULL) { continue; }
 
     /* treat the remaining string as the arguments,
