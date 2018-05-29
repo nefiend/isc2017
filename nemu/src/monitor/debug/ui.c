@@ -82,7 +82,7 @@ static int cmd_x(char *args){
 
   /* extract the first argument */
   char *arg = strtok(args, " ");
-  Log("arg = %c\r\n", *arg);
+  Log("arg = %d\r\n", atoi(arg));
   
   if (NULL == arg){
     panic("param error!");
