@@ -91,7 +91,8 @@ static int cmd_x(char *args){
   }
 
   uiResult = expr(cExpression, &bSuccess);
-  Log("result = %d\r\n", uiResult);
+  
+  Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
   /*
   int *p;
   p = (int *)uiResult;
