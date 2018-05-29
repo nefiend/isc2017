@@ -78,7 +78,7 @@ static int cmd_x(char *args){
   bool bSuccess;
   uint32_t uiResult;
   char *cExpression;
-  //int iIdx;
+  int iIdx;
 
   /* extract the first argument */
   char *arg = strtok(args, " ");
@@ -92,14 +92,12 @@ static int cmd_x(char *args){
 
   uiResult = expr(cExpression, &bSuccess);
   
-  Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
-  /*
   int *p;
-  p = (int *)uiResult;
+  p = (int *)guest_to_host(uiResult);
   for (iIdx = 0; iIdx < *arg; iIdx++){
     printf("0x%x\r\n", *(p + iIdx));
   }
-  */
+  
   
 
   return 0;
