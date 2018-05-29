@@ -41,7 +41,7 @@ static int cmd_si(char *args){
     cpu_exec(1);
   }
   else{
-  cpu_exec(*args);
+    cpu_exec(atoi(args));
   }
   return 0;
 }
@@ -97,16 +97,24 @@ static int cmd_x(char *args){
   Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
   
   int *p;
-  p = (int *)guest_to_host(0x100000);
+  //p = (int *)guest_to_host(0x100000);
+  p = (int *)guest_to_host(uiResult);
   for (iIdx = 0; iIdx < atoi(arg); iIdx++){
     printf("0x%x\r\n", *(p + iIdx));
   }
   
-  
-
   return 0;
 }
 
+static int cmd_w(char *args)
+{
+  return 0;
+}
+
+static int cmd_d(char *args)
+{
+  return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -125,7 +133,8 @@ static struct {
   {"info", "info {r | w}. Print register status or watch point info", cmd_info},
   {"p", "p EXPR. Find the value of EXPR", cmd_p},
   {"x", "x N EXPR. Find the value of EXPR and use the value as start memory address, output N DWORD continuously", cmd_x},
-
+  {"w", "w EXPR. While the value of EXPR changed, stopping the program.", cmd_w},
+  {"d", "d N. Delete the #N watchpoint.", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
