@@ -92,8 +92,10 @@ static int cmd_x(char *args){
 
   uiResult = expr(cExpression, &bSuccess);
   
+  Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
+  
   int *p;
-  p = (int *)guest_to_host(uiResult);
+  p = (int *)guest_to_host(0x100000);
   for (iIdx = 0; iIdx < *arg; iIdx++){
     printf("0x%x\r\n", *(p + iIdx));
   }
