@@ -98,7 +98,7 @@ static int cmd_x(char *args){
   
   int *p;
   p = (int *)guest_to_host(0x100000);
-  for (iIdx = 0; iIdx < *arg; iIdx++){
+  for (iIdx = 0; iIdx < atoi(arg); iIdx++){
     printf("0x%x\r\n", *(p + iIdx));
   }
   
