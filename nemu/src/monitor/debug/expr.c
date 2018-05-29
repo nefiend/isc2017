@@ -349,6 +349,7 @@ int eval(int start, int end){
     int ret, i, val1, val2;
     int op = -1;
     int parenthesis_count = 0;
+    /* 找出算式分裂的运算符的位置op */
     for (i = start; i <= end; i++){
       Log("parenthesis_count = %d.", parenthesis_count);
       /* 1、判断当前字符是否是在括号里面 */
@@ -389,6 +390,7 @@ int eval(int start, int end){
 
     if (-1 == op)
       return -1;
+    Log("op = %d\r\n", op);
     val1 = eval(start, op-1);
     val2 = eval(op + 1, end);
 
