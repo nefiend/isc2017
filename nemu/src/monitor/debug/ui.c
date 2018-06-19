@@ -83,7 +83,7 @@ static int cmd_x(char *args){
   /* extract the first argument */
   char *arg = strtok(args, " ");
   Log("arg = %d\r\n", atoi(arg));
-  
+
   if (NULL == arg){
     panic("param error!");
     return -1;
@@ -93,16 +93,16 @@ static int cmd_x(char *args){
   }
 
   uiResult = expr(cExpression, &bSuccess);
-  
+
   Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
-  
+
   int *p;
   //p = (int *)guest_to_host(0x100000);
   p = (int *)guest_to_host(uiResult);
   for (iIdx = 0; iIdx < atoi(arg); iIdx++){
     printf("0x%x\r\n", *(p + iIdx));
   }
-  
+
   return 0;
 }
 

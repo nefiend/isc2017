@@ -20,4 +20,26 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
+/* 从free_链表中返回一个空闲的监视点结构 */
+WP* new_wp(){
+    WP *pWPNode;
 
+    Assert(NULL != free_, "free_ is empty!");
+
+    pWPNode = free_;
+    free_ = free_->next;
+
+    return pWPNode;
+}
+/* 将wp归还到free_链表当中 */
+void free_wp(WP *wp){
+    WP *pWPNode;
+
+    Assert(NULL != wp, "Parameter Err!");
+
+    pWPNode = free_;
+    free_ = wp;
+    free_->next = pWPNode;
+
+    return;
+}
