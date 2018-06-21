@@ -6,7 +6,6 @@
 #include <sys/types.h>
 #include <regex.h>
 #include <stdlib.h>
-#include <string.h>
 
 enum {
   TK_NOTYPE = 256, 
@@ -121,87 +120,121 @@ static bool make_token(char *e) {
           case '+':
           {
             tokens[nr_token].type = '+';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '-':
           {
             tokens[nr_token].type = '-';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '*':
           {
             tokens[nr_token].type = '*';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '/':
           {
             tokens[nr_token].type = '/';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '$':
           {
             tokens[nr_token].type = '$';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_GREAT_EQ:
           {
             tokens[nr_token].type = TK_GREAT_EQ;
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_LESS_EQ:
           {
             tokens[nr_token].type = TK_LESS_EQ;
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '>':
           {
             tokens[nr_token].type = '>';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '<':
           {
             tokens[nr_token].type = '<';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_NOT_EQ:
           {
             tokens[nr_token].type = TK_NOT_EQ;
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_EQ:
           {
             tokens[nr_token].type = TK_EQ;
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '=':
           {
             tokens[nr_token].type = '=';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_NUM:
           {
             tokens[nr_token].type = TK_NUM;
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case TK_VAR:
           {
             tokens[nr_token].type = TK_VAR;
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           
           case ',':
           {
             tokens[nr_token].type = ',';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case '(':
           {
             tokens[nr_token].type = '(';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           case ')':
           {
             tokens[nr_token].type = ')';
+            strlcpy(tokens[nr_token].str, substr_start, substr_len);
+            nr_token++;
             break;
           }
           default:
@@ -209,8 +242,8 @@ static bool make_token(char *e) {
             TODO();
           }
         }
-        if (TK_NOTYPE != rules[i].token_type){
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+        if (tokens[nr_token].type){
+          strlcpy(tokens[nr_token].str, substr_start, substr_len);
           nr_token++;
         }
         
