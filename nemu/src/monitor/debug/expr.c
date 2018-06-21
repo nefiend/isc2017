@@ -145,9 +145,9 @@ static bool make_token(char *e) {
             nr_token++;
             break;
           }
-          case '&':
+          case '$':
           {
-            tokens[nr_token].type = '&';
+            tokens[nr_token].type = '$';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
             nr_token++;
             break;
