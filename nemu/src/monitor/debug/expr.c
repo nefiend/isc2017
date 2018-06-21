@@ -46,7 +46,7 @@ static struct rule {
   {"!=", TK_NOT_EQ},      // not equal
   {"==", TK_EQ},          // equal
   {"=", '='},             // assign
-  {"0x[0-9a-fA-F]", TK_NUM_HEX}, // hex number 
+  {"0x[0-9a-fA-F]+", TK_NUM_HEX}, // hex number 
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
   {",", ','},             // comma
