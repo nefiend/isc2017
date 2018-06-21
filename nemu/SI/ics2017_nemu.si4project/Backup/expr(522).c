@@ -36,7 +36,6 @@ static struct rule {
   {"-", '-'},             // subtract
   {"\\*", '*'},           // multiply
   {"/", '/'},             // divide
-  {"$", '$'},             // 
   {">=", TK_GREAT_EQ},    // greater or equal
   {"<=", TK_LESS_EQ},     // less or equal
   {">", '>'},             // greater
@@ -48,7 +47,7 @@ static struct rule {
   {"[a-zA-Z]+", TK_VAR},  // variable
   {",", ','},             // comma
   {"[.(.]", '('},         // open parenthesis
-  {"[.).]", ')'}          // close parenthesis
+  {"[.).]", ')'}         // close parenthesis
   /*
   {"[.[.]", '['},         // open bracket
   {"[.].]", ']'},         // close bracket
@@ -141,13 +140,6 @@ static bool make_token(char *e) {
           case '/':
           {
             tokens[nr_token].type = '/';
-            memcpy(tokens[nr_token].str, substr_start, substr_len);
-            nr_token++;
-            break;
-          }
-          case '&':
-          {
-            tokens[nr_token].type = '&';
             memcpy(tokens[nr_token].str, substr_start, substr_len);
             nr_token++;
             break;
@@ -339,6 +331,7 @@ int operator_compare(int op1, int op2){
   else{
     return -1;
   }
+    
 }
 
 int eval(int start, int end){
@@ -356,7 +349,6 @@ int eval(int start, int end){
     int ret, i, val1, val2;
     int op = -1;
     int parenthesis_count = 0;
-    
     /* 找出算式分裂的运算符的位置op */
     for (i = start; i <= end; i++){
       Log("parenthesis_count = %d.", parenthesis_count);
@@ -369,15 +361,15 @@ int eval(int start, int end){
       else {
         parenthesis_count += is_parenthesis(tokens[i].type);
         /* 2、判断字符是否是算术运算符 */
-        Log("tokens[%d].type = %d", i, tokens[i].type);
+      Log("tokens[%d].type = %d", i, tokens[i].type);
         if (true == is_mathematic_operator(tokens[i].type)){
           /* 判断op是否有值 */
           if (-1 == op){
             op = i;
             continue;
           }
+          /* 3、判断算数运算符的优先级 */
           else{
-            /* 3、判断算数运算符的优先级 */
             ret = operator_compare(tokens[op].type, tokens[i].type);
             if (op_cmp_small == ret){
               continue;
