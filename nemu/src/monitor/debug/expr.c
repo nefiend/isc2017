@@ -18,6 +18,7 @@ enum {
   TK_EQ,
   TK_NUM,
   TK_VAR,
+  TK_NUM_HEX,
 
   /* TODO: Add more token types */
 
@@ -45,11 +46,13 @@ static struct rule {
   {"!=", TK_NOT_EQ},      // not equal
   {"==", TK_EQ},          // equal
   {"=", '='},             // assign
+  {"0x[0-9a-fA-F]", TK_NUM_HEX}, // hex number 
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
   {",", ','},             // comma
   {"[.(.]", '('},         // open parenthesis
-  {"[.).]", ')'}          // close parenthesis
+  {"[.).]", ')'}         // close parenthesis
+
   /*
   {"[.[.]", '['},         // open bracket
   {"[.].]", ']'},         // close bracket
@@ -176,6 +179,11 @@ static bool make_token(char *e) {
           case '=':
           {
             tokens[nr_token].type = '=';
+            break;
+          }
+          case TK_NUM_HEX:
+          {
+            tokens[nr_token].type = TK_NUM_HEX;
             break;
           }
           case TK_NUM:
