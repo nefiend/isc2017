@@ -19,7 +19,6 @@ enum {
   TK_NUM,
   TK_VAR,
   TK_NUM_HEX,
-  TK_REG_NAME,
 
   /* TODO: Add more token types */
 
@@ -39,6 +38,7 @@ static struct rule {
   {"-", '-'},             // subtract
   {"\\*", '*'},           // multiply
   {"/", '/'},             // divide
+  {"$", '$'},             // 
   {">=", TK_GREAT_EQ},    // greater or equal
   {"<=", TK_LESS_EQ},     // less or equal
   {">", '>'},             // greater
@@ -46,11 +46,9 @@ static struct rule {
   {"!=", TK_NOT_EQ},      // not equal
   {"==", TK_EQ},          // equal
   {"=", '='},             // assign
-  {"!", '!'},             // not
   {"0x[0-9a-fA-F]+", TK_NUM_HEX}, // hex number 
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
-  {"$[)(a-zA-Z]", TK_REG_NAME},     // reg name
   {",", ','},             // comma
   {"[.(.]", '('},         // open parenthesis
   {"[.).]", ')'}         // close parenthesis
@@ -144,6 +142,11 @@ static bool make_token(char *e) {
             tokens[nr_token].type = '/';
             break;
           }
+          case '$':
+          {
+            tokens[nr_token].type = '$';
+            break;
+          }
           case TK_GREAT_EQ:
           {
             tokens[nr_token].type = TK_GREAT_EQ;
@@ -179,11 +182,6 @@ static bool make_token(char *e) {
             tokens[nr_token].type = '=';
             break;
           }
-          case '!':
-          {
-            tokens[nr_token].type = '!';
-            break;
-          }
           case TK_NUM_HEX:
           {
             tokens[nr_token].type = TK_NUM_HEX;
@@ -197,11 +195,6 @@ static bool make_token(char *e) {
           case TK_VAR:
           {
             tokens[nr_token].type = TK_VAR;
-            break;
-          }
-          case TK_REG_NAME:
-          {
-            tokens[nr_token].type = TK_REG_NAME;
             break;
           }
           
