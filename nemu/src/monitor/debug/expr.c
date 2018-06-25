@@ -52,6 +52,7 @@ static struct rule {
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
   {"$[a-zA-Z]*", TK_REG_NAME},     // reg name
+  {"$", '$'},
   {",", ','},             // comma
   {"[.(.]", '('},         // open parenthesis
   {"[.).]", ')'}         // close parenthesis
@@ -203,6 +204,11 @@ static bool make_token(char *e) {
           case TK_REG_NAME:
           {
             tokens[nr_token].type = TK_REG_NAME;
+            break;
+          }
+          case '$':
+          {
+            tokens[nr_token].type = '$';
             break;
           }
           case ',':
