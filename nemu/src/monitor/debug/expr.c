@@ -20,6 +20,7 @@ enum {
   TK_VAR,
   TK_NUM_HEX,
   TK_REG_NAME,
+  TK_DEREF,       /* 解引用 */
 
   /* TODO: Add more token types */
 
@@ -50,7 +51,7 @@ static struct rule {
   {"0x[0-9a-fA-F]+", TK_NUM_HEX}, // hex number 
   {"[0-9]+", TK_NUM},     // number
   {"[a-zA-Z]+", TK_VAR},  // variable
-  {"$[)(a-zA-Z]", TK_REG_NAME},     // reg name
+  {"$[a-zA-Z]", TK_REG_NAME},     // reg name
   {",", ','},             // comma
   {"[.(.]", '('},         // open parenthesis
   {"[.).]", ')'}         // close parenthesis
@@ -409,11 +410,20 @@ int eval(int start, int end){
 
 
 uint32_t expr(char *e, bool *success) {
+int i;
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
-  
+  for (i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && 
+        (i == 0 || 
+         (tokens[i - 1].type != TK_NUM_HEX && 
+          tokens[i - 1].type != TK_NUM && 
+          tokens[i - 1].type != TK_VAR))) {
+      tokens[i].type = TK_DEREF;
+    }
+  }
   /* TODO: Insert codes to evaluate the expression. */
   for (int i = 0; i < nr_token; i ++){
     printf("token[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
