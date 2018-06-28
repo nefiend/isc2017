@@ -351,81 +351,95 @@ int operator_compare(int op1, int op2){
  * return         : 
  *********************************************************************/
 int eval(int start, int end){
-  if (start > end){
-    return -1;
-  }
-  else if (start == end){
-    return atoi(tokens[start].str);
-  }
-  else if (true == check_parentheses(start, end)){
-    return eval(start + 1, end - 1);
-  }
-  else{
-    /* find dominant operator */
-    int ret, i, val1, val2;
-    int op = -1;
-    int parenthesis_count = 0;
-    
-    /* 找出算式分裂的运算符的位置op */
-    for (i = start; i <= end; i++){
-      Log("Loop:%d parenthesis_count = %d.", i, parenthesis_count);
-      /* 1、判断当前字符是否是在括号里面 */
-      Assert(parenthesis_count >= 0, "parenthesis count is err!");
-      if (parenthesis_count > 0){
-        parenthesis_count += is_parenthesis(tokens[i].type);
-        continue;
-      }
-      else {
-        parenthesis_count += is_parenthesis(tokens[i].type);
-        /* 2、判断字符是否是算术运算符 */
-        Log("tokens[%d].type = %d", i, tokens[i].type);
-        if (true == is_mathematic_operator(tokens[i].type)){
-          /* 判断op是否有值 */
-          if (-1 == op){
-            op = i;
-            continue;
-          }
-          else{
-            /* 3、判断算数运算符的优先级 */
-            ret = operator_compare(tokens[op].type, tokens[i].type);
-            if (op_cmp_small == ret){
-              continue;
-            }
-            else if ((op_cmp_equal == ret) || (op_cmp_big == ret)){
-              op = i;
-            }
-            else{
-              return -1;
-            }
-          }
-        }
-        else{
-          continue;
-        }
-      }
+    if (start > end){
+        return -1;
     }
-
-    if (-1 == op)
-      return -1;
-    Log("op = %d\r\n", op);
-    val1 = eval(start, op-1);
-    val2 = eval(op + 1, end);
-
-    switch(*(tokens[op].str)){
-      case '+':
-        return val1 + val2;
-      case '-':
-        return val1 - val2;
-      case '*':
-        return val1 * val2;
-      case '/':
-        return val1 / val2;
-      default:
-        assert(0);
+    else if (start == end){
+        int ret;
+        switch (tokens[start].type){
+            case TK_NUM:
+                ret = atoi(tokens[start].str);
+                break;
+            case TK_NUM_HEX:
+                sscanf(tokens[start].str, "%x", &ret);
+                break;
+            default:
+                TODO();
+                return -1;
+        }
+        
+        return ret;
     }
+    else if (true == check_parentheses(start, end)){
+        return eval(start + 1, end - 1);
+    }
+    else{
+        /* find dominant operator */
+        int ret, i, val1, val2;
+        int op = -1;
+        int parenthesis_count = 0;
     
-    return 0;
-  }
+        /* 找出算式分裂的运算符的位置op */
+        for (i = start; i <= end; i++){
+            Log("Loop:%d parenthesis_count = %d.", i, parenthesis_count);
+            /* 1、判断当前字符是否是在括号里面 */
+            Assert(parenthesis_count >= 0, "parenthesis count is err!");
+            if (parenthesis_count > 0){
+                parenthesis_count += is_parenthesis(tokens[i].type);
+                continue;
+            }
+            else {
+                parenthesis_count += is_parenthesis(tokens[i].type);
+                /* 2、判断字符是否是算术运算符 */
+                Log("tokens[%d].type = %d", i, tokens[i].type);
+                if (true == is_mathematic_operator(tokens[i].type)){
+                    /* 判断op是否有值 */
+                    if (-1 == op){
+                        op = i;
+                        continue;
+                    }
+                    else{
+                        /* 3、判断算数运算符的优先级 */
+                        ret = operator_compare(tokens[op].type, tokens[i].type);
+                        if (op_cmp_small == ret){
+                            continue;
+                        }
+                        else if ((op_cmp_equal == ret) || (op_cmp_big == ret)){
+                            op = i;
+                        }
+                        else{
+                            return -1;
+                        }
+                    }
+                }
+                else if (TK_DEREF == tokens[i].type){
+                /* 当前字符是DEREF，需要将其当一个整体求值 */
+                    continue;
+                }
+            }
+        }
+
+        if (-1 == op)
+            return -1;
+        Log("op = %d\r\n", op);
+        val1 = eval(start, op-1);
+        val2 = eval(op + 1, end);
+
+        switch(*(tokens[op].str)){
+        case '+':
+            return val1 + val2;
+        case '-':
+            return val1 - val2;
+        case '*':
+            return val1 * val2;
+        case '/':
+            return val1 / val2;
+        default:
+            assert(0);
+        }
+    
+        return 0;
+    }
 
 }
 
