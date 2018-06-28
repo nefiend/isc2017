@@ -429,22 +429,7 @@ int eval(int start, int end){
 
 }
 
-#define IS_DEREF(Idx) \
-  (tokens[i].type == '*' && \
-   (i == 0 || (tokens[i - 1].type == '+' || \
-               tokens[i - 1].type == '-' || \
-               tokens[i - 1].type == '*' || \
-               tokens[i - 1].type == '/')))
-
-/*********************************************************************
- * Function Name  : expr
- * Author         : Nefiend
- * Create Date    : 2018-6-28
- * Description    : 表达式计算入口
- * Input          : char *e        表达式
- *                  bool *success  是否计算成功
- * return         : uint32_t    计算结果
- *********************************************************************/
+/* 表达式计算入口 */
 uint32_t expr(char *e, bool *success) {
 int i;
   if (!make_token(e)) {
@@ -452,7 +437,11 @@ int i;
     return 0;
   }
   for (i = 0; i < nr_token; i ++) {
-    if (IS_DEREF(i)){
+    if (tokens[i].type == '*' && 
+        (i == 0 || 
+         (tokens[i - 1].type != TK_NUM_HEX && 
+          tokens[i - 1].type != TK_NUM && 
+          tokens[i - 1].type != TK_VAR))) {
       tokens[i].type = TK_DEREF;
     }
   }
@@ -461,7 +450,7 @@ int i;
     printf("token[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
   }
 
-  //Log("%s = %d.", e, eval(0, nr_token-1));
+  Log("%s = %d.", e, eval(0, nr_token-1));
   
   *success = true;
   //TODO();
