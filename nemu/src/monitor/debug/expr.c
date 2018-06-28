@@ -362,6 +362,7 @@ int eval(int start, int end){
                 break;
             case TK_NUM_HEX:
                 sscanf(tokens[start].str, "%x", &ret);
+                printf("==================%d\r\n", ret);
                 break;
             default:
                 TODO();
