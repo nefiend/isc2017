@@ -342,106 +342,68 @@ int operator_compare(int op1, int op2){
 
 /* 根据名字确认寄存器的值 */
 int GetRegValueByName(char *pName){
-    if (0 == strcmp(pName, "eax"))
-    {
-        return reg_l(0);
+
+    switch (*pName){
+        case "eax":
+            return reg_l(0);
+        case "ax":
+            return reg_w(0);
+        case "al":
+            return reg_b(0);
+                    
+        case "ecx":
+            return reg_l(1);
+        case "cx":
+            return reg_w(1);
+        case "cl":
+            return reg_b(1);
+
+        case "edx":
+            return reg_l(2);
+        case "dx":
+            return reg_w(2);
+        case "dl":
+            return reg_b(2);
+
+        case "ebx":
+            return reg_l(3);
+        case "bx":
+            return reg_w(3);
+        case "bl":
+            return reg_b(3); 
+
+        case "esp":
+            return reg_l(4);
+        case "sp":
+            return reg_w(4);
+        case "ah":
+            return reg_b(4); 
+
+        case "ebp":
+            return reg_l(5);
+        case "bp":
+            return reg_w(5);
+        case "ch":
+            return reg_b(5);
+            
+        case "esi":
+            return reg_l(6);
+        case "si":
+            return reg_w(6);
+        case "dh":
+            return reg_b(6);
+
+        case "edi":
+            return reg_l(7);
+        case "di":
+            return reg_w(7);
+        case "bh":
+            return reg_b(7);
+
+        default:
+            break;
     }
-    else if (0 == strcmp(pName, "ax"))
-    {
-        return reg_w(0);
-    }
-    else if (0 == strcmp(pName, "al"))
-    {
-        return reg_b(0);
-    }
-    else if (0 == strcmp(pName, "ecx"))
-    {
-        return reg_l(1);
-    }
-    else if (0 == strcmp(pName, "cx"))
-    {
-        return reg_w(1);
-    }
-    else if (0 == strcmp(pName, "cl"))
-    {
-        return reg_b(1);
-    }
-    else if (0 == strcmp(pName, "edx"))
-    {
-        return reg_l(2);
-    }
-    else if (0 == strcmp(pName, "dx"))
-    {
-        return reg_w(2);
-    }
-    else if (0 == strcmp(pName, "dl"))
-    {
-        return reg_b(2);
-    }
-    else if (0 == strcmp(pName, "ebx"))
-    {
-        return reg_l(3);
-    }
-    else if (0 == strcmp(pName, "bx"))
-    {
-        return reg_w(3);
-    }
-    else if (0 == strcmp(pName, "bl"))
-    {
-        return reg_b(3); 
-    }
-    else if (0 == strcmp(pName, "esp"))
-    {
-        return reg_l(4);
-    }
-    else if (0 == strcmp(pName, "sp"))
-    {
-        return reg_w(4);
-    }
-    else if (0 == strcmp(pName, "ah"))
-    {
-        return reg_b(4); 
-    }
-    else if (0 == strcmp(pName, "ebp"))
-    {
-        return reg_l(5);
-    }
-    else if (0 == strcmp(pName, "bp"))
-    {
-        return reg_w(5);
-    }
-    else if (0 == strcmp(pName, "ch"))
-    {
-        return reg_b(5);
-    }
-    else if (0 == strcmp(pName, "esi"))
-    {
-        return reg_l(6);
-    }
-    else if (0 == strcmp(pName, "si"))
-    {
-        return reg_w(6);
-    }
-    else if (0 == strcmp(pName, "dh"))
-    {
-        return reg_b(6);
-    }
-    else if (0 == strcmp(pName, "edi"))
-    {
-        return reg_l(7);
-    }
-    else if (0 == strcmp(pName, "di"))
-    {
-        return reg_w(7);
-    }
-    else if (0 == strcmp(pName, "bh"))
-    {
-        return reg_b(7);
-    }
-    else
-    {
-        return -1;
-    }
+    return -1;
 }
 
 /*********************************************************************
@@ -462,31 +424,18 @@ int eval(int start, int end){
         int ret;
         switch (tokens[start].type){
             case TK_NUM:
-            {
                 ret = atoi(tokens[start].str);
                 break;
-            }
-            
             case TK_NUM_HEX:
-            {
                 sscanf(tokens[start].str, "%x", &ret);
                 printf("==================%d\r\n", ret);
                 break;
-            }
-            
             case TK_REG_NAME:
-            {
                 char *pName = tokens[start].str + 1;
                 ret = GetRegValueByName(pName);
-                break;
-            }
-                
             default:
-            {
-                printf("eval, Error type, p1 = %d.", tokens[start].type);
-                ret = -1;
-            }
-                
+                TODO();
+                return -1;
         }
         
         return ret;
