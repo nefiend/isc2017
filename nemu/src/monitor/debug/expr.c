@@ -483,7 +483,7 @@ int eval(int start, int end){
                 
             default:
             {
-                printf("eval, Error type, p1 = %d.", tokens[start].type);
+                Log("eval, Error type, p1 = %d.", tokens[start].type);
                 ret = -1;
             }
                 
