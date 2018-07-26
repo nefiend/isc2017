@@ -94,14 +94,6 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-#define IS_DEREF(i) \
-  (tokens[i].type == '*' && \
-   (i == 0 || (tokens[i - 1].type == '+' || \
-               tokens[i - 1].type == '-' || \
-               tokens[i - 1].type == '*' || \
-               tokens[i - 1].type == '/')))
-
-
 static bool make_token(char *e) {
   Log("e = %s", e);
   int position = 0;
@@ -145,14 +137,7 @@ static bool make_token(char *e) {
           }
           case '*':
           {
-            if ( IS_DEREF(nr_token) )
-            {
-                tokens[nr_token].type = TK_DEREF;
-            }
-            else
-            {
-                tokens[nr_token].type = '*';
-            }
+            tokens[nr_token].type = '*';
             break;
           }
           case '/':
@@ -471,11 +456,9 @@ int GetRegValueByName(char *pName){
  *********************************************************************/
 int eval(int start, int end){
     if (start > end){
-        /* 错误分支 */
         return -1;
     }
     else if (start == end){
-        /* 如果是一个元素 */
         int ret;
         switch (tokens[start].type){
             case TK_NUM:
@@ -516,8 +499,6 @@ int eval(int start, int end){
         int ret, i, val1, val2;
         int op = -1;
         int parenthesis_count = 0;
-
-        
     
         /* 找出算式分裂的运算符的位置op */
         for (i = start; i <= end; i++){
@@ -565,7 +546,7 @@ int eval(int start, int end){
         val1 = eval(start, op-1);
         val2 = eval(op + 1, end);
 
-        switch(tokens[op].type){
+        switch(*(tokens[op].str)){
         case '+':
             return val1 + val2;
         case '-':
@@ -574,8 +555,6 @@ int eval(int start, int end){
             return val1 * val2;
         case '/':
             return val1 / val2;
-        case TK_DEREF:
-            
         default:
             assert(0);
         }
@@ -585,7 +564,12 @@ int eval(int start, int end){
 
 }
 
-
+#define IS_DEREF(Idx) \
+  (tokens[i].type == '*' && \
+   (i == 0 || (tokens[i - 1].type == '+' || \
+               tokens[i - 1].type == '-' || \
+               tokens[i - 1].type == '*' || \
+               tokens[i - 1].type == '/')))
 
 /*********************************************************************
  * Function Name  : expr
@@ -597,14 +581,18 @@ int eval(int start, int end){
  * return         : uint32_t    计算结果
  *********************************************************************/
 uint32_t expr(char *e, bool *success) {
-  int i;
+int i;
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
-
+  for (i = 0; i < nr_token; i ++) {
+    if (IS_DEREF(i)){
+      tokens[i].type = TK_DEREF;
+    }
+  }
   /* TODO: Insert codes to evaluate the expression. */
-  for (i = 0; i < nr_token; i ++){
+  for (int i = 0; i < nr_token; i ++){
     printf("token[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
   }
 
