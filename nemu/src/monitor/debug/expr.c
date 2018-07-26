@@ -94,12 +94,12 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-#define IS_DEREF(i) \
-  (tokens[i].type == '*' && \
-   (i == 0 || (tokens[i - 1].type == '+' || \
-               tokens[i - 1].type == '-' || \
-               tokens[i - 1].type == '*' || \
-               tokens[i - 1].type == '/')))
+#define IS_DEREF(_i) \
+  (tokens[_i].type == '*' && \
+   (_i == 0 || (tokens[_i - 1].type == '+' || \
+               tokens[_i - 1].type == '-' || \
+               tokens[_i - 1].type == '*' || \
+               tokens[_i - 1].type == '/')))
 
 
 static bool make_token(char *e) {
@@ -145,7 +145,7 @@ static bool make_token(char *e) {
           }
           case '*':
           {
-            if ( IS_DEREF(nr_token) )
+            if (IS_DEREF(nr_token))
             {
                 tokens[nr_token].type = TK_DEREF;
             }
