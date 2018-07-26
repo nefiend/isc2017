@@ -516,7 +516,14 @@ int eval(int start, int end){
         int op = -1;
         int parenthesis_count = 0;
 
-        
+        if (TK_DEREF == tokens[start].type)
+        {
+            uint32_t *p = NULL;
+            ret = eval(start + 1, end);
+            p = (uint32_t *)guest_to_host(ret);
+            Log("REF value = %u.", *p);
+            return *p;
+        }
     
         /* 找出算式分裂的运算符的位置op */
         for (i = start; i <= end; i++){
