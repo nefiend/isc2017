@@ -86,9 +86,9 @@ static int cmd_x(char *args){
   bool bSuccess;
   uint32_t uiResult;
   char *cExpression;
-  int iIdx;
+  uint32_t uiIdx;
 
-  /* extract the first argument */
+  /* 获取第一个参数，即连续输出N个4字节 */
   char *arg = strtok(args, " ");
   Log("arg = %d\r\n", atoi(arg));
 
@@ -105,11 +105,11 @@ static int cmd_x(char *args){
 
   Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
 
-  int *p;
+  uint32_t *p;
   //p = (int *)guest_to_host(0x100000);
-  p = (int *)guest_to_host(uiResult);
-  for (iIdx = 0; iIdx < atoi(arg); iIdx++){
-    printf("0x%x\r\n", *(p + iIdx));
+  p = (uint32_t *)guest_to_host(uiResult);
+  for (uiIdx = 0; uiIdx < atoi(arg); uiIdx++){
+    printf("%p:0x%x\r\n", (p + uiIdx), *(p + uiIdx));
   }
 
   return 0;
