@@ -74,14 +74,6 @@ static int cmd_p(char *args){
   return 0;
 }
 
-/*********************************************************************
- * Function Name  : cmd_x
- * Author         : Nefiend
- * Create Date    : 2018-7-26
- * Description    : 扫描内存接口
- * Input          : char *args  
- * return         : static
- *********************************************************************/
 static int cmd_x(char *args){
   bool bSuccess;
   uint32_t uiResult;
@@ -101,7 +93,6 @@ static int cmd_x(char *args){
   }
 
   uiResult = expr(cExpression, &bSuccess);
-  Log("uiResult = %u\r\n", uiResult);
 
   Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
 
