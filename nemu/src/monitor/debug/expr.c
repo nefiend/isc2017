@@ -95,11 +95,10 @@ Token tokens[32];
 int nr_token;
 
 #define IS_DEREF(_i) \
-  (tokens[_i].type == '*' && \
-   (_i == 0 || (tokens[_i - 1].type == '+' || \
+  (_i == 0 || (tokens[_i - 1].type == '+' || \
                tokens[_i - 1].type == '-' || \
                tokens[_i - 1].type == '*' || \
-               tokens[_i - 1].type == '/')))
+               tokens[_i - 1].type == '/'))
 
 
 static bool make_token(char *e) {
