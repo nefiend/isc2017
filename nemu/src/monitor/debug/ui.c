@@ -50,7 +50,7 @@ static int cmd_info(char *args){
   if(NULL == args){
     printf("Please type r or w for params!\n");}
   else if(strcmp(args, "r") == 0){
-    char *reg[] = {"rax", "rcx", "rdx", "rbx", "rsp", "rbp", "rsi", "rdi"};
+    char *reg[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
     for (uint32_t i = 0; i < 8; i++){
       printf("%s \t %p \t 0x%x\n",  reg[i], &reg_l(i), reg_l(i));
       //printf("%s \t 0x%x\n",  reg[i], reg_w(i));
