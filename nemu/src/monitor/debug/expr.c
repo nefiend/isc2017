@@ -555,7 +555,11 @@ int eval(int start, int end){
                  * 说明解引用后面的是最一个表达式了*/
                     if ((i+1 == end) || (tokens[end].type==')'))
                     {
-                        return eval(i+1, end);
+                        uint32_t *p = NULL;
+                        ret = eval(start + 1, end);
+                        p = (uint32_t *)guest_to_host(ret);
+                        Log("REF value = %u.", *p);
+                        return *p;
                     }
                 }
             }
