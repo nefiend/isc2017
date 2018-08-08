@@ -67,14 +67,6 @@ static int cmd_info(char *args){
   return 0;
 }
 
-/*********************************************************************
- * Function Name  : cmd_p
- * Author         : Nefiend
- * Create Date    : 2018-8-8
- * Description    : 计算表达式
- * Input          : char *args  
- * return         : static
- *********************************************************************/
 static int cmd_p(char *args){
   bool success;
   //expr(args, &success);
@@ -123,14 +115,6 @@ static int cmd_x(char *args){
   return 0;
 }
 
-/*********************************************************************
- * Function Name  : cmd_w
- * Author         : Nefiend
- * Create Date    : 2018-8-6
- * Description    :  
- * Input          : char *args  
- * return         : static
- *********************************************************************/
 static int cmd_w(char *args)
 {
   return 0;

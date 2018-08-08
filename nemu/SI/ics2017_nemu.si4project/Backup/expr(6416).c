@@ -508,14 +508,22 @@ int eval(int start, int end){
         return ret;
     }
     else if (true == check_parentheses(start, end)){
-        /* 括号表达式，不能有()...()形式 */
         return eval(start + 1, end - 1);
     }
     else{
-        /* 找到分隔运算符 */
+        /* find dominant operator */
         int ret, i, val1, val2;
         int op = -1;
         int parenthesis_count = 0;
+
+        if (TK_DEREF == tokens[start].type)
+        {
+            uint32_t *p = NULL;
+            ret = eval(start + 1, end);
+            p = (uint32_t *)guest_to_host(ret);
+            Log("REF value = %u.", *p);
+            return *p;
+        }
     
         /* 找出算式分裂的运算符的位置op */
         for (i = start; i <= end; i++){
@@ -551,12 +559,8 @@ int eval(int start, int end){
                     }
                 }
                 else if (TK_DEREF == tokens[i].type){
-                /* 当前字符是DEREF，并且i+1==end或者tokens[end].type==')'
-                 * 说明解引用后面的是最一个表达式了*/
-                    if ((i+1 == end) || (tokens[end].type==')'))
-                    {
-                        return eval(i+1, end);
-                    }
+                /* 当前字符是DEREF，需要将其当一个整体求值 */
+                    continue;
                 }
             }
         }
@@ -576,6 +580,7 @@ int eval(int start, int end){
             return val1 * val2;
         case '/':
             return val1 / val2;
+        case TK_DEREF:
             
         default:
             assert(0);
