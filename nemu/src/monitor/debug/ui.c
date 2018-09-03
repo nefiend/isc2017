@@ -127,12 +127,13 @@ static int cmd_x(char *args){
  * Function Name  : cmd_w
  * Author         : Nefiend
  * Create Date    : 2018-8-6
- * Description    :  
- * Input          : char *args  
+ * Description    : 设置监视点
+ * Input          : char *args      输入表达式字符串
  * return         : static
  *********************************************************************/
 static int cmd_w(char *args)
 {
+
   return 0;
 }
 

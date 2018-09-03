@@ -3,12 +3,13 @@
 
 #include "common.h"
 
-typedef struct watchpoint {
-  int NO;
-  struct watchpoint *next;
+typedef struct watchpoint 
+{
+    int NO;
+    struct watchpoint *next;
 
-  /* TODO: Add more members if necessary */
-
+    /* TODO: Add more members if necessary */
+    char *cExpr;
 
 } WP;
 
