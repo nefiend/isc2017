@@ -56,7 +56,7 @@ static int cmd_info(char *args){
       //printf("%s \t 0x%x\n",  reg[i], reg_w(i));
       //printf("%s \t 0x%x\n",  reg[i], reg_b(i));
     }
-    printf("rip \t 0x%x\n", cpu.eip);
+    printf("rip \t %p \t 0x%x\n", &cpu.eip, cpu.eip);
   }
   else if(strcmp(args, "w") == 0){
 
