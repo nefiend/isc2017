@@ -126,6 +126,7 @@ bool check_all_watchpoints(){
             pCur->bIsChanged = true;
             bIsChanged = true;
         }
+        pCur = pCur->next;
     }
 
     return bIsChanged;
