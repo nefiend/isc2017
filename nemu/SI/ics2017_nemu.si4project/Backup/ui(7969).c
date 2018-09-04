@@ -76,17 +76,10 @@ static int cmd_info(char *args){
  * return         : static
  *********************************************************************/
 static int cmd_p(char *args){
-    bool success;
-    uint32_t uiRv;
-    uiRv = expr(args, &success);
-    if (true == success){
-        printf("%s = 0x%x\r\n", args, uiRv);
-        return 0;
-    }
-    else{
-        assert(0);
-        return -1;
-    }
+  bool success;
+  //expr(args, &success);
+  printf("%s = 0x%x\r\n", args, expr(args, &success));
+  return 0;
 }
 
 /*********************************************************************
@@ -98,36 +91,36 @@ static int cmd_p(char *args){
  * return         : static
  *********************************************************************/
 static int cmd_x(char *args){
-    bool bSuccess;
-    uint32_t uiRv;
-    char *cExpression;
-    uint32_t uiIdx;
+  bool bSuccess;
+  uint32_t uiResult;
+  char *cExpression;
+  uint32_t uiIdx;
 
-    /* 获取第一个参数，即连续输出N个4字节 */
-    char *arg = strtok(args, " ");
-    Log("arg = %d\r\n", atoi(arg));
+  /* 获取第一个参数，即连续输出N个4字节 */
+  char *arg = strtok(args, " ");
+  Log("arg = %d\r\n", atoi(arg));
 
-    if (NULL == arg){
-        panic("param error!");
-        return -1;
-    }
-    else{
-        cExpression = arg + strlen(arg) + 1;
-    }
+  if (NULL == arg){
+    panic("param error!");
+    return -1;
+  }
+  else{
+    cExpression = arg + strlen(arg) + 1;
+  }
 
-    uiRv = expr(cExpression, &bSuccess);
-    Log("uiResult = %u\r\n", uiRv);
+  uiResult = expr(cExpression, &bSuccess);
+  Log("uiResult = %u\r\n", uiResult);
 
-    Log("result = %d\r\n", *(int *)guest_to_host(uiRv));
+  Log("result = %d\r\n", *(int *)guest_to_host(uiResult));
 
-    uint32_t *p;
-    //p = (int *)guest_to_host(0x100000);
-    p = (uint32_t *)guest_to_host(uiRv);
-    for (uiIdx = 0; uiIdx < atoi(arg); uiIdx++){
-        printf("%p:0x%x\r\n", (p + uiIdx), *(p + uiIdx));
-    }
+  uint32_t *p;
+  //p = (int *)guest_to_host(0x100000);
+  p = (uint32_t *)guest_to_host(uiResult);
+  for (uiIdx = 0; uiIdx < atoi(arg); uiIdx++){
+    printf("%p:0x%x\r\n", (p + uiIdx), *(p + uiIdx));
+  }
 
-    return 0;
+  return 0;
 }
 
 /*********************************************************************
@@ -138,18 +131,10 @@ static int cmd_x(char *args){
  * Input          : char *args      输入表达式字符串
  * return         : static
  *********************************************************************/
-static int cmd_w(char *args){
-    WP *pWPNode;
-    bool bSuccess;
-    //uint32_t uiRv;
+static int cmd_w(char *args)
+{
 
-    pWPNode = new_wp();
-    pWPNode->cExpr = args;
-    pWPNode->uiExprVal = expr(pWPNode->cExpr, &bSuccess);
-    pWPNode->bIsChanged = false;
-    
-
-    return 0;
+  return 0;
 }
 
 static int cmd_d(char *args)

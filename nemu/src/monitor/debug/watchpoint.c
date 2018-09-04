@@ -26,7 +26,7 @@ void init_wp_pool() {
  * Function Name  : new_wp
  * Author         : Nefiend
  * Create Date    : 2018-9-3
- * Description    : 从free_链表中返回一个空闲的监视点结构,head链表中新增一各监视点结构
+ * Description    : 从free_链表中返回一个空闲的监视点结构,head链表中新增一个监视点结构
  * Input          : None
  * return         : WP*
  *********************************************************************/
@@ -36,23 +36,22 @@ WP* new_wp(){
 
     Assert(NULL != free_, "free_ is empty!");
 
+    /* 将第一个结点返回出去 */
     pWPNode = free_;
+    pWPNode->next = NULL;
     free_ = free_->next;
 
-    pCur = head;
-    if (NULL == pCur)
-    {
-        pCur = pWPNode;
+    /* 在head链表中增加监视点 */
+    if (NULL == head){
+        head = pWPNode;
     }
-    else
-    {
-        while(NULL != pCur->next)
-        {
+    else{
+        pCur = head;
+        while(NULL != pCur->next){
             pCur = pCur->next;
         }
         pCur->next = pWPNode;
     }
-
 
     return pWPNode;
 }
@@ -66,19 +65,69 @@ WP* new_wp(){
  * return         : 
  *********************************************************************/
 void free_wp(WP *wp){
-    WP *pWPNode;
+    WP *pCur;
 
     Assert(NULL != wp, "Parameter Err!");
+    Assert(NULL != head, "head Err!");
 
-    pWPNode = free_;
-    free_ = wp;
-    free_->next = pWPNode;
+    /* 将head中对应的结点删除 */
+    pCur = head;
+    if(pCur == wp){
+        wp->next = NULL;
+        head = pCur->next;
+    }else{
+        while (pCur->next != wp && NULL != pCur->next){
+            pCur = pCur->next;
+        }
+        
+        if(NULL == pCur->next){
+            assert(0);
+            return;
+        }
+        pCur->next = wp;
+        wp->next = NULL;
+    }
+    
+    /* 将结点归还给free_，插入到最后面 */
+    pCur = free_;
+    while(NULL != pCur->next){
+        pCur->next = wp;
+    }
 
+    /* 将wp结点内容清除 */
+    wp->uiExprVal = 0;
+    wp->cExpr = NULL;
+    wp->bIsChanged = false;
     return;
 }
 
-void check_all_watchpoints()
-{
-    head = wp_pool;
+/*********************************************************************
+ * Function Name  : check_all_watchpoints
+ * Author         : Nefiend
+ * Create Date    : 2018-9-4
+ * Description    : 检查所有的监视点的值
+ * Input          : None
+ * return         : true    发生了变化
+                    false   没有发生变化
+ *********************************************************************/
+bool check_all_watchpoints(){
+    WP *pCur;
+    bool bSuccess;
+    bool bIsChanged;
+    uint32_t uiRv;
+    
+    Assert(NULL != head, "head Err!");
+
+    bIsChanged = false;
+    pCur = head;
+    while (NULL != pCur){
+        uiRv = expr(pCur->cExpr, &bSuccess);
+        if (uiRv != pCur->uiExprVal){
+            pCur->bIsChanged = true;
+            bIsChanged = true;
+        }
+    }
+
+    return bIsChanged;
 }
 
