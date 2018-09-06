@@ -68,6 +68,7 @@ static int cmd_info(char *args){
         
     }else if(strcmp(args, "w") == 0){
         /* 显示watchpoint信息 */
+        display_active_watchpoints();
     }else{
         printf("Unknown command '%s'\n", args);
     }

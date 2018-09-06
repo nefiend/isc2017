@@ -46,7 +46,5 @@ void free_wp(WP *wp);
  *********************************************************************/
 bool check_all_watchpoints();
 
-void display_active_watchpoints();
-
 
 #endif
