@@ -147,6 +147,8 @@ void display_active_watchpoints(){
     pCur = head;
     while(NULL != pCur){
         printf(" %-2d  watchpoint    keep  y                %s\r\n", pCur->NO, pCur->cExpr);
+
+        pCur = pCur->next;
     }
 
 }
