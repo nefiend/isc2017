@@ -118,7 +118,6 @@ bool check_all_watchpoints(){
     
     Assert(NULL != head, "head Err!");
 
-    /* 遍历所有的监视点，发生变化的结点，标记为置为true */
     bIsChanged = false;
     pCur = head;
     while (NULL != pCur){
@@ -126,29 +125,10 @@ bool check_all_watchpoints(){
         if (uiRv != pCur->uiExprVal){
             pCur->bIsChanged = true;
             bIsChanged = true;
-            printf("Watchpoint %d: %s\r\n\r\n", pCur->NO, pCur->cExpr);
-            printf("Old value = 0x%x \r\n", pCur->uiExprVal);
-            printf("New value = 0x%x \r\n", uiRv);
         }
         pCur = pCur->next;
     }
 
     return bIsChanged;
 }
-
-void display_active_watchpoints(){
-    WP *pCur;
-
-
-    if (NULL == head){return;}
-    
-    printf("Num     Type           Disp Enb Address    What\r\n");
-    
-    pCur = head;
-    while(NULL != pCur){
-        printf(" %-2d  watchpoint    keep  y                %s\r\n", pCur->NO, pCur->cExpr);
-    }
-
-}
-
 

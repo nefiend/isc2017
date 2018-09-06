@@ -46,32 +46,25 @@ static int cmd_si(char *args){
   return 0;
 }
 
-/*********************************************************************
- * Function Name  : cmd_info
- * Author         : Nefiend
- * Create Date    : 2018-9-6
- * Description    : 打印信息
- * Input          : char *args  输入参数字符串，r|w，两种参数选择
- * return         : static
- *********************************************************************/
 static int cmd_info(char *args){
-    if(NULL == args){
-        printf("Please type r or w for params!\n");
-    }else if(strcmp(args, "r") == 0){
-        char *reg[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
-        for (uint32_t i = 0; i < 8; i++){
-            printf("%s \t %p \t 0x%x\n",  reg[i], &reg_l(i), reg_l(i));
-            //printf("%s \t 0x%x\n",  reg[i], reg_w(i));
-            //printf("%s \t 0x%x\n",  reg[i], reg_b(i));
-        }
-        printf("rip \t %p \t 0x%x\n", &cpu.eip, cpu.eip);
-        
-    }else if(strcmp(args, "w") == 0){
-        /* 显示watchpoint信息 */
-    }else{
-        printf("Unknown command '%s'\n", args);
+  if(NULL == args){
+    printf("Please type r or w for params!\n");}
+  else if(strcmp(args, "r") == 0){
+    char *reg[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+    for (uint32_t i = 0; i < 8; i++){
+      printf("%s \t %p \t 0x%x\n",  reg[i], &reg_l(i), reg_l(i));
+      //printf("%s \t 0x%x\n",  reg[i], reg_w(i));
+      //printf("%s \t 0x%x\n",  reg[i], reg_b(i));
     }
-    return 0;
+    printf("rip \t %p \t 0x%x\n", &cpu.eip, cpu.eip);
+  }
+  else if(strcmp(args, "w") == 0){
+
+  }
+  else{
+    printf("Unknown command '%s'\n", args);
+  }
+  return 0;
 }
 
 /*********************************************************************
