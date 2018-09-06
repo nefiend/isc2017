@@ -38,8 +38,8 @@ WP* new_wp(){
 
     /* 将第一个结点返回出去 */
     pWPNode = free_;
-    pWPNode->next = NULL;
     free_ = free_->next;
+    pWPNode->next = NULL;
 
     /* 在head链表中增加监视点 */
     if (NULL == head){
