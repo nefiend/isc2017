@@ -166,7 +166,7 @@ void delete_watchpoint(int Num){
         if(Num == pCur->NO){
             free_wp(pCur);
             printf("watchpoint %d has been deleted!\r\n", pCur->NO);
-            break;
+            return;
         }
 
         pCur = pCur->next;
