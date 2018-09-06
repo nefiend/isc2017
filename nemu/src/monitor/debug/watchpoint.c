@@ -69,6 +69,7 @@ void free_wp(WP *wp){
 
     Assert(NULL != wp, "Parameter Err!");
     Assert(NULL != head, "head Err!");
+    Log("wp->NO: %d\r\n", wp->NO);
 
     /* 将head中对应的结点删除 */
     pCur = head;
@@ -87,11 +88,12 @@ void free_wp(WP *wp){
         pCur->next = wp;
         wp->next = NULL;
     }
+
     
     /* 将结点归还给free_，插入到最后面 */
     pCur = free_;
     while(NULL != pCur->next){
-        pCur->next = wp;
+        pCur->next = pCur;
     }
 
     /* 将wp结点内容清除 */
