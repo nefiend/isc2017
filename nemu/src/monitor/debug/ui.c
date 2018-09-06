@@ -168,9 +168,16 @@ static int cmd_w(char *args){
  * Input          : char *args  想要删除监视点编号
  * return         : static
  *********************************************************************/
-static int cmd_d(char *args)
-{
-  return 0;
+static int cmd_d(char *args){
+    int WatchpointNum;
+    char *arg = strtok(args, " ");
+    
+    WatchpointNum = atoi(arg);
+    Log("watchpoint %d will be deleted\r\n", WatchpointNum);
+
+    delete_watchpoint(WatchpointNum);
+
+    return 0;
 }
 
 static int cmd_help(char *args);

@@ -50,5 +50,8 @@ bool check_all_watchpoints();
 
 void display_active_watchpoints();
 
+void delete_watchpoint(int Num);
+
+
 
 #endif

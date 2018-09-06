@@ -139,7 +139,6 @@ bool check_all_watchpoints(){
 void display_active_watchpoints(){
     WP *pCur;
 
-
     if (NULL == head){return;}
     
     printf("Num     Type           Disp Enb Address    What\r\n");
@@ -150,7 +149,25 @@ void display_active_watchpoints(){
 
         pCur = pCur->next;
     }
-
+    
+    return;
 }
 
+
+void delete_watchpoint(int Num){
+    WP *pCur;
+
+    if (NULL == head){return;}
+
+    pCur = head;
+    while(NULL != pCur){
+        if(Num == pCur->NO){
+            free_wp(pCur);
+            printf("watchpoint %d has been deleted!\r\n", pCur->NO);
+            break;
+        }
+
+        pCur = pCur->next;
+    }
+}
 
