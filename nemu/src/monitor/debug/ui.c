@@ -152,14 +152,22 @@ static int cmd_w(char *args){
     //uint32_t uiRv;
 
     pWPNode = new_wp();
-    pWPNode->cExpr = args;
-    pWPNode->uiExprVal = expr(pWPNode->cExpr, &bSuccess);
+    memset(pWPNode->acExpr, 0 ,EXPR_LEN);
+    pWPNode->uiExprVal = expr(pWPNode->acExpr, &bSuccess);
     pWPNode->bIsChanged = false;
-    Log("watchpoint %d is set: %s\r\n", pWPNode->NO, pWPNode->cExpr);
+    Log("watchpoint %d is set: %s\r\n", pWPNode->NO, pWPNode->acExpr);
 
     return 0;
 }
 
+/*********************************************************************
+ * Function Name  : cmd_d
+ * Author         : Nefiend
+ * Create Date    : 2018-9-6
+ * Description    : 删除监视点
+ * Input          : char *args  想要删除监视点编号
+ * return         : static
+ *********************************************************************/
 static int cmd_d(char *args)
 {
   return 0;

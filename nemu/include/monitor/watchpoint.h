@@ -3,13 +3,15 @@
 
 #include "common.h"
 
+#define EXPR_LEN 32
+
 typedef struct watchpoint 
 {
     int NO;
     struct watchpoint *next;
 
     /* TODO: Add more members if necessary */
-    char *cExpr;
+    char acExpr[EXPR_LEN];
     uint32_t  uiExprVal;
     bool bIsChanged;
 

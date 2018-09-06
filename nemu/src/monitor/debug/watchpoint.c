@@ -96,7 +96,7 @@ void free_wp(WP *wp){
 
     /* 将wp结点内容清除 */
     wp->uiExprVal = 0;
-    wp->cExpr = NULL;
+    memset(wp->acExpr, 0 ,EXPR_LEN);
     wp->bIsChanged = false;
     return;
 }
@@ -122,11 +122,11 @@ bool check_all_watchpoints(){
     bIsChanged = false;
     pCur = head;
     while (NULL != pCur){
-        uiRv = expr(pCur->cExpr, &bSuccess);
+        uiRv = expr(pCur->acExpr, &bSuccess);
         if (uiRv != pCur->uiExprVal){
             pCur->bIsChanged = true;
             bIsChanged = true;
-            printf("Watchpoint %d: %s\r\n\r\n", pCur->NO, pCur->cExpr);
+            printf("Watchpoint %d: %s\r\n\r\n", pCur->NO, pCur->acExpr);
             printf("Old value = 0x%x \r\n", pCur->uiExprVal);
             printf("New value = 0x%x \r\n", uiRv);
         }
@@ -146,7 +146,7 @@ void display_active_watchpoints(){
     
     pCur = head;
     while(NULL != pCur){
-        printf(" %-2d  watchpoint    keep  y                %s\r\n", pCur->NO, pCur->cExpr);
+        printf(" %-2d  watchpoint    keep  y                %s\r\n", pCur->NO, pCur->acExpr);
 
         pCur = pCur->next;
     }
