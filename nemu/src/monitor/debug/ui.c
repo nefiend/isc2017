@@ -154,7 +154,7 @@ static int cmd_w(char *args){
     pWPNode->cExpr = args;
     pWPNode->uiExprVal = expr(pWPNode->cExpr, &bSuccess);
     pWPNode->bIsChanged = false;
-    
+    Log("watchpoint %d is set!\r\n", pWPNode->NO);
 
     return 0;
 }
