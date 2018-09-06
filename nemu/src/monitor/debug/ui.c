@@ -152,7 +152,7 @@ static int cmd_w(char *args){
     //uint32_t uiRv;
 
     pWPNode = new_wp();
-    memset(pWPNode->acExpr, 0 ,EXPR_LEN);
+    memcpy(pWPNode->acExpr, args ,EXPR_LEN);
     pWPNode->uiExprVal = expr(pWPNode->acExpr, &bSuccess);
     pWPNode->bIsChanged = false;
     Log("watchpoint %d is set: %s\r\n", pWPNode->NO, pWPNode->acExpr);
