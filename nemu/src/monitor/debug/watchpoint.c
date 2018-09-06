@@ -161,6 +161,8 @@ void delete_watchpoint(int Num){
 
     pCur = head;
     while(NULL != pCur){
+        Log("Num: %d, pCur->NO: %d\r\n", Num, pCur->NO);
+        
         if(Num == pCur->NO){
             free_wp(pCur);
             printf("watchpoint %d has been deleted!\r\n", pCur->NO);
@@ -169,5 +171,7 @@ void delete_watchpoint(int Num){
 
         pCur = pCur->next;
     }
+
+    return;
 }
 
